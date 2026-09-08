@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Birthday Surprise 🎂</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: Georgia, 'Times New Roman', serif;
+
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.12), transparent 25%),
+                radial-gradient(circle at 80% 30%, rgba(255,150,200,0.18), transparent 30%),
+                linear-gradient(135deg, #6f2948, #a84d70, #d06b91);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+        }
+
+        /* Background glow */
+        .glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 130, 180, 0.25);
+            filter: blur(80px);
+            animation: glowMove 8s ease-in-out infinite alternate;
+        }
+
+        .glow.one {
+            top: -100px;
+            left: -80px;
+        }
+
+        .glow.two {
+            bottom: -120px;
+            right: -80px;
+            animation-delay: 2s;
+        }
+
+        @keyframes glowMove {
+            from {
+                transform: translate(0, 0);
+            }
+            to {
+                transform: translate(70px, 50px);
+            }
+        }
+
+        /* Main container */
+        .container {
+            width: 100%;
+            max-width: 650px;
+            padding: 25px;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* Glass card */
+        .card {
+            position: relative;
+
+            width: 100%;
+            min-height: 500px;
+
+            padding: 55px 45px;
+
+            border-radius: 30px;
+
+            background: rgba(255, 255, 255, 0.13);
+            border: 1px solid rgba(255,255,255,0.22);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 25px 60px rgba(50, 0, 25, 0.35),
+                inset 0 1px rgba(255,255,255,0.18);
+
+            text-align: center;
+
+            overflow: hidden;
+        }
+
+        /* Shine */
+        .card::before {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+
+            top: -80px;
+            right: -50px;
+
+            background: rgba(255,255,255,0.16);
+
+            filter: blur(35px);
+            border-radius: 50%;
+        }
+
+        /* Heart */
+        .heart {
+            font-size: 55px;
+            margin-bottom: 20px;
+
+            animation:
+                heartbeat 1.5s infinite,
+                floatHeart 4s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.12);
+            }
+
+            30% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes floatHeart {
+            0%,100% {
+                translate: 0 0;
+            }
+
+            50% {
+                translate: 0 -8px;
+            }
+        }
+
+        h1 {
+            font-size: clamp(32px, 7vw, 52px);
+            margin-bottom: 22px;
+
+            text-shadow:
+                0 4px 20px rgba(70,0,30,0.3);
+        }
+
+        .message {
+            font-family: Arial, sans-serif;
+
+            font-size: 17px;
+            line-height: 1.8;
+
+            color: rgba(255,255,255,0.92);
+
+            max-width: 510px;
+            margin: auto;
+
+            white-space: pre-line;
+        }
+
+        /* Button */
+        button {
+            margin-top: 35px;
+
+            border: none;
+            outline: none;
+
+            padding: 17px 34px;
+
+            border-radius: 50px;
+
+            background: linear-gradient(
+                135deg,
+                #ff9abf,
+                #ff668f
+            );
+
+            color: white;
+
+            font-size: 14px;
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 30px rgba(255, 70, 130, 0.4);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-3px) scale(1.03);
+
+            box-shadow:
+                0 15px 35px rgba(255, 70, 130, 0.55);
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        /* Layer transition */
+        .layer {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(25px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Floating decorations */
+        .decoration {
+            position: fixed;
+
+            font-size: 30px;
+
+            opacity: 0.65;
+
+            pointer-events: none;
+
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%,100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-35px) rotate(15deg);
+            }
+        }
+
+        .d1 {
+            left: 8%;
+            top: 15%;
+            animation-delay: 0s;
+        }
+
+        .d2 {
+            right: 10%;
+            top: 18%;
+            animation-delay: 1s;
+        }
+
+        .d3 {
+            left: 12%;
+            bottom: 15%;
+            animation-delay: 2s;
+        }
+
+        .d4 {
+            right: 13%;
+            bottom: 13%;
+            animation-delay: 3s;
+        }
+
+        .d5 {
+            left: 25%;
+            top: 7%;
+            animation-delay: 4s;
+        }
+
+        .d6 {
+            right: 25%;
+            bottom: 5%;
+            animation-delay: 5s;
+        }
+
+        /* Small dots */
+        .sparkle {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+
+            background: rgba(255,255,255,0.8);
+
+            border-radius: 50%;
+
+            animation: sparkle 3s infinite ease-in-out;
+        }
+
+        @keyframes sparkle {
+            0%,100% {
+                opacity: 0.2;
+                transform: scale(0.7);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+
+            .container {
+                padding: 18px;
+            }
+
+            .card {
+                min-height: 530px;
+                padding: 45px 25px;
+                border-radius: 25px;
+            }
+
+            .heart {
+                font-size: 48px;
+            }
+
+            .message {
+                font-size: 15px;
+                line-height: 1.75;
+            }
+
+            button {
+                padding: 15px 25px;
+                font-size: 12px;
+            }
+
+            .decoration {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background glow -->
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+
+    <!-- Floating decorations -->
+    <div class="decoration d1">💗</div>
+    <div class="decoration d2">🌸</div>
+    <div class="decoration d3">🤍</div>
+    <div class="decoration d4">💕</div>
+    <div class="decoration d5">✨</div>
+    <div class="decoration d6">🌷</div>
+
+    <!-- Sparkles -->
+    <div class="sparkle" style="left:18%; top:30%;"></div>
+    <div class="sparkle" style="left:78%; top:25%; animation-delay:1s;"></div>
+    <div class="sparkle" style="left:30%; top:75%; animation-delay:2s;"></div>
+    <div class="sparkle" style="left:85%; top:70%; animation-delay:0.5s;"></div>
+
+    <!-- Main -->
+    <main class="container">
+
+        <div class="card" id="card">
+
+            <!-- Content will load here -->
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const layers = [
+
+            {
+                heart: "❤️",
+
+                title: "Hey, Birthday Girl! 🎂✨",
+
+                message: `Iss baar maine tere birthday ke liye kuch alag try kiya hai.
+
+Kuch expensive nahi hai aur na hi koi dramatic speech 😭😂
+
+Bas ek small sa surprise hai,
+jo specially tere liye banaya hai. ❤️
+
+Ready hai dekhne ke liye ki andar kya hai? 👀`,
+
+                button: "CHAL DIKHAA 👀"
+            },
+
+
+            {
+                heart: "💗",
+
+                title: "Our Friendship ✨",
+
+                message: `Kuch log hamari life mein unexpectedly aate hain,
+aur hamari ordinary si life ko thoda aur exciting bana dete hain.
+
+Mere har ek kaand mein tune mera saath diya hai 😂
+
+Tere paas mere saare secrets hain...
+jo honestly kabhi kabhi mujhe darate bhi hain. 😭
+
+Tere se ladai bhi nahi kar sakti,
+kyunki tu turant blackmail karne lagti hai kutti 😂😭
+
+But jokes apart...
+
+Jo bhi hai tere aur mere beech,
+woh genuinely special hai. ❤️
+
+Aur I'm really glad ki meri life mein tu hai. 🫶🏻`,
+
+                button: "AAGE BHI HAI 👀"
+            },
+
+
+            {
+                heart: "🥹",
+
+                title: "Ek Choti Si Baat... 💫",
+
+                message: `Waise toh main ye sab normally nahi bolta...
+
+Warna zyada importance mil jayegi tujhe 😂
+
+But honestly,
+thank you for being there through all the random talks,
+stupid jokes, unnecessary drama
+aur mere endless kaands. 😭😂
+
+Humne saath mein itni random memories banayi hain
+ki kabhi kabhi sochta hoon...
+
+Bhai hum dono itne pagal kaise hain? 😂
+
+Life mein aage chahe kitna bhi kuch change ho,
+bas ye hope hai ki hamari ye stupid si friendship
+aur ye bakchodi kabhi khatam na ho. ❤️`,
+
+                button: "LAST WALA BHI DEKH 👀"
+            },
+
+
+            {
+                heart: "🎂",
+
+                title: "Happy Birthday! 🥳❤️",
+
+                message: `And finally...
+Birthday Girl, this one's for you! 🥳🎂
+
+I hope tera ye new year of life
+bahut saari happiness, success, adventures
+aur amazing memories lekar aaye. ✨
+
+Jo tu chahti hai woh tujhe mile,
+jiske liye tu mehnat kar rahi hai
+usmein tujhe success mile,
+
+aur life mein hamesha
+smile karne ke reasons milte rahein. ❤️
+
+Aur haan...
+
+Thodi akal bhi aa jaye tujhe,
+although uski expectations ab maine chhod di hain. 😂
+
+Stay crazy, stay annoying,
+aur aisi hi rehna jaise tu hai. 🫶🏻
+
+Happy Birthday, Pagal! 🥳❤️
+
+Here's to more memories,
+more fights,
+more bakchodi
+and hopefully...
+thoda kam blackmailing. 😂`,
+
+                button: "🎉 HAPPY BIRTHDAY!"
+            }
+
+        ];
+
+
+        let currentLayer = 0;
+
+        const card = document.getElementById("card");
+
+
+        function showLayer(index) {
+
+            const layer = layers[index];
+
+            card.innerHTML = `
+
+                <div class="layer">
+
+                    <div class="heart">
+                        ${layer.heart}
+                    </div>
+
+                    <h1>
+                        ${layer.title}
+                    </h1>
+
+                    <div class="message">
+                        ${layer.message}
+                    </div>
+
+                    <button onclick="nextLayer()">
+                        ${layer.button}
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+
+
+        function nextLayer() {
+
+            if (currentLayer < layers.length - 1) {
+
+                currentLayer++;
+
+                showLayer(currentLayer);
+
+            } else {
+
+                createCelebration();
+
+            }
+
+        }
+
+
+        function createCelebration() {
+
+            const button = document.querySelector("button");
+
+            button.innerHTML = "🎉 ONCE AGAIN...";
+
+            for (let i = 0; i < 35; i++) {
+
+                const confetti = document.createElement("div");
+
+                confetti.innerHTML =
+                    ["❤️", "💗", "✨", "🌸", "🎉", "💕"][Math.floor(Math.random() * 6)];
+
+                confetti.style.position = "fixed";
+
+                confetti.style.left =
+                    Math.random() * 100 + "%";
+
+                confetti.style.top = "-30px";
+
+                confetti.style.fontSize =
+                    (15 + Math.random() * 20) + "px";
+
+                confetti.style.zIndex = "20";
+
+                confetti.style.pointerEvents = "none";
+
+                document.body.appendChild(confetti);
+
+
+                const duration =
+                    3000 + Math.random() * 3000;
+
+                confetti.animate(
+
+                    [
+                        {
+                            transform: "translateY(0) rotate(0deg)",
+                            opacity: 1
+                        },
+
+                        {
+                            transform:
+                                `translateY(110vh) rotate(${Math.random() * 720}deg)`,
+                            opacity: 0
+                        }
+                    ],
+
+                    {
+                        duration: duration,
+                        easing: "cubic-bezier(.2,.7,.3,1)"
+                    }
+
+                );
+
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, duration);
+            }
+
+        }
+
+
+        // Start with Layer 1
+        showLayer(0);
+
+    </script>
+
+</body>
+</html>
